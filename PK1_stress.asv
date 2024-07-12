@@ -23,8 +23,8 @@ function P11 = PK1_stress(params, x)
 
 
     S_ich = {};
-    S_ich_1 = PK2_stress_ich(params(1:3), x, F);
-    S_ich_2 = PK2_stress_ich(params(4:6), x, F);
+    S_ich_1 = PK2_stress_ich(params(1:), x, F);
+    S_ich_2 = PK2_stress_ich(params(2), x, F);
     for i = 1:length(x)
         S_ich_i = Tensor2_3D();
         S_ich_i.mat = S_ich_1{i}.mat + S_ich_2{i}.mat;

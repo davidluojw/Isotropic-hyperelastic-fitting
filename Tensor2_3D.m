@@ -38,6 +38,11 @@ classdef Tensor2_3D
             out = Tensor2_3D(newMat);
         end
 
+        function out = gen_transpose(obj)
+            out = Tensor2_3D();
+            out.mat = obj.mat';
+        end
+
         % Vec otimes Vec
         % lVec and rVec: dimension must be (3,1)
         function obj = VecotimesVec(obj, lVec, rVec)
@@ -56,6 +61,8 @@ classdef Tensor2_3D
             obj = Tensor2_3D(newMat);
         end
 
+        % obj dot rTen2
+        % C_ij = A_ik B_kj
         function out = Ten2RdotTen2(obj, rTen2)
             out = Tensor2_3D();
             out.mat = obj.mat * rTen2.mat;

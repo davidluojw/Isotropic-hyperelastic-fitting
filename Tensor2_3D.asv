@@ -26,6 +26,7 @@ classdef Tensor2_3D
         end
 
         function out = gen_C(obj, F)
+            out = Tensor2_3D();
             out.mat = transpose(F.mat) * F.mat;
         end
 
@@ -39,16 +40,28 @@ classdef Tensor2_3D
 
         % Vec otimes Vec
         % lVec and rVec: dimension must be (3,1)
-        function out = VecotimesVec(obj, lVec, rVec)
-            [lrows, lcols] = size(lVec);
-            if (lrows ~= 3 )
+        function obj = VecotimesVec(obj, lVec, rVec)
+            [lrows, ~] = size(lVec);
+            [rrows, ~] = size(lVec);
+            if (lrows == 1)
+                error("lVec is not a column vector");
+            end
+            if (rrows == 1)
+                error("rVec is not a column vector");
+            end
+
             newMat = zeros(3);
             newMat = lVec * rVec';
 
-            out = Tensor2_3D(newMat);
+            obj = Tensor2_3D(newMat);
         end
 
-        
+        % obj dot rTen2
+        function out = Ten2RdotTen2(obj, rTen2)
+            out = Tensor2_3D();
+            out.mat = obj.mat * rTen2.mat;
+        end
+
 
     end
 
