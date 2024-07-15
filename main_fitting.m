@@ -6,10 +6,10 @@ format long;
 
 % 读取数据
 % Uniaxial Tension
-data = readtable('Treloar_UT.xlsx');
-data = table2array(data);
-x = data(:,2);
-y = data(:,3);
+% data = readtable('Treloar_UT.xlsx');
+% data = table2array(data);
+% x = data(:,2);
+% y = data(:,3);
 
 
 % Pure Shear
@@ -19,10 +19,10 @@ y = data(:,3);
 % y = data(:,3);
 
 % Equibiaxial Tension
-% data = readtable('Treloar_EB.xlsx');
-% data = table2array(data);
-% x = data(:,2);
-% y = data(:,3);
+data = readtable('Treloar_EB.xlsx');
+data = table2array(data);
+x = data(:,2);
+y = data(:,3);
 
 
 % lb = -Inf(6,1);

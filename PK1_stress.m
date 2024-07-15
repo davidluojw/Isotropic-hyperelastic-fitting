@@ -1,30 +1,30 @@
 function P11 = PK1_stress(params, x)
     
     % Uniaxial Tension
-    F = {};
-    for i = 1:length(x)
-        F{i} = Tensor2_3D().gen_F(x(i), 1.0 / sqrt(x(i)), 1.0 / sqrt(x(i)));
-        detF(i) = x(i) * 1.0 / sqrt(x(i)) * 1.0 / sqrt(x(i));  % incompressible, J= 1
-    end
+    % F = {};
+    % for i = 1:length(x)
+    %     F{i} = Tensor2_3D().gen_F(x(i), 1.0 / sqrt(x(i)), 1.0 / sqrt(x(i)));
+    %     detF(i) = x(i) * 1.0 / sqrt(x(i)) * 1.0 / sqrt(x(i));  % incompressible, J= 1
+    % end
 
     % Pure Shear
     % F = {};
     % for i = 1:length(x)
-    %     F{i} = Tensor2_3D().gen_F(x(i), 1.0 / x(i), 1.0);
+    %     F{i} = Tensor2_3D().gen_F(x(i), 1.0, 1.0 / x(i)) ;
     %     detF(i) = x(i) * 1.0 / x(i);  % incompressible, J= 1
     % end
 
     % Equibiaxial Tension
-    % F = {};
-    % for i = 1:length(x)
-    %     F{i} = Tensor2_3D().gen_F(x(i), x(i), 1.0 / ( x(i) * x(i) ) );
-    %     detF(i) = x(i) *  x(i) * 1.0 / (x(i) * x(i) );  % incompressible, J= 1
-    % end
+    F = {};
+    for i = 1:length(x)
+        F{i} = Tensor2_3D().gen_F(x(i), x(i), 1.0 / ( x(i) * x(i) ) );
+        detF(i) = x(i) *  x(i) * 1.0 / (x(i) * x(i) );  % incompressible, J= 1
+    end
 
 
     S_ich = {};
-    S_ich_1 = PK2_stress_ich(params(1:3), x, F);
-    S_ich_2 = PK2_stress_ich(params(4:6), x, F);
+    S_ich_1 = PK2_stress_ich(params(1:3), x, F, detF);
+    S_ich_2 = PK2_stress_ich(params(4:6), x, F, detF);
     for i = 1:length(x)
         S_ich_i = Tensor2_3D();
         S_ich_i.mat = S_ich_1{i}.mat + S_ich_2{i}.mat;
